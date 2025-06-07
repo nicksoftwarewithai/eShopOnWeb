@@ -12,4 +12,5 @@ public interface ICatalogItemService
     Task<CatalogItem> GetById(int id);
     Task<List<CatalogItem>> ListPaged(int pageSize);
     Task<List<CatalogItem>> List();
+    Task<List<CatalogItem>> Search(string searchTerm);
 }

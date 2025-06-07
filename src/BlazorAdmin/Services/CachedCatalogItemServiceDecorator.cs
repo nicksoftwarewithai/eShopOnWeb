@@ -110,4 +110,10 @@ public class CachedCatalogItemServiceDecorator : ICatalogItemService
         var entry = new CacheEntry<List<CatalogItem>>(items);
         await _localStorageService.SetItemAsync(key, entry);
     }
+
+    public async Task<List<CatalogItem>> Search(string searchTerm)
+    {
+        // For search, we don't cache the results as they are specific to the search term
+        return await _catalogItemService.Search(searchTerm);
+    }
 }

@@ -21,15 +21,15 @@ else
     </p>
 
     <div class="d-flex align-items-center mb-3">
-        <input type="text" class="form-control mr-2" placeholder="Search by name or description..." 
+        <input type="text" class="form-control me-2" placeholder="Search by name or description..." 
                @bind="searchTerm" @onkeypress="@(async (e) => { if (e.Key == "Enter") await SearchItems(); })" 
                style="max-width: 300px;" />
-        <button class="btn btn-outline-secondary" @onclick="SearchItems">
+        <button class="btn btn-outline-secondary me-2" @onclick="SearchItems">
             Search
         </button>
         @if (!string.IsNullOrEmpty(searchTerm))
         {
-            <button class="btn btn-outline-info ml-2" @onclick="ClearSearch">
+            <button class="btn btn-outline-info" @onclick="ClearSearch">
                 Clear
             </button>
         }

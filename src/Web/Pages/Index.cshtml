@@ -11,13 +11,26 @@
 <section class="esh-catalog-filters">
     <div class="container">
         <form method="get">
-            <label class="esh-catalog-label" data-title="brand">
-                <select asp-for="@Model.CatalogModel.BrandFilterApplied" asp-items="@Model.CatalogModel.Brands" class="esh-catalog-filter"></select>
-            </label>
-            <label class="esh-catalog-label" data-title="type">
-                <select asp-for="@Model.CatalogModel.TypesFilterApplied" asp-items="@Model.CatalogModel.Types" class="esh-catalog-filter"></select>
-            </label>
-            <input class="esh-catalog-send" type="image" src="~/images/arrow-right.svg" />
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <label class="esh-catalog-label" data-title="brand">
+                        <select asp-for="@Model.CatalogModel.BrandFilterApplied" asp-items="@Model.CatalogModel.Brands" class="esh-catalog-filter"></select>
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <label class="esh-catalog-label" data-title="type">
+                        <select asp-for="@Model.CatalogModel.TypesFilterApplied" asp-items="@Model.CatalogModel.Types" class="esh-catalog-filter"></select>
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label class="esh-catalog-label" data-title="search">
+                        <input asp-for="@Model.CatalogModel.SearchTerm" placeholder="Search by name or description..." class="form-control" />
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input class="esh-catalog-send" type="image" src="~/images/arrow-right.svg" />
+                </div>
+            </div>
         </form>
     </div>
 </section>

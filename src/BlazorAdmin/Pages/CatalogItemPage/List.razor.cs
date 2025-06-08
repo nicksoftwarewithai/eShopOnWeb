@@ -20,7 +20,6 @@ public partial class List : BlazorComponent
     private List<CatalogItem> catalogItems = new List<CatalogItem>();
     private List<CatalogType> catalogTypes = new List<CatalogType>();
     private List<CatalogBrand> catalogBrands = new List<CatalogBrand>();
-    private string searchTerm = string.Empty;
 
     private Edit EditComponent { get; set; }
     private Delete DeleteComponent { get; set; }
@@ -65,24 +64,5 @@ public partial class List : BlazorComponent
     {
         catalogItems = await CatalogItemService.List();
         StateHasChanged();
-    }
-
-    private async Task SearchItems()
-    {
-        if (string.IsNullOrWhiteSpace(searchTerm))
-        {
-            await ReloadCatalogItems();
-        }
-        else
-        {
-            catalogItems = await CatalogItemService.Search(searchTerm.Trim());
-            StateHasChanged();
-        }
-    }
-
-    private async Task ClearSearch()
-    {
-        searchTerm = string.Empty;
-        await ReloadCatalogItems();
     }
 }

@@ -37,13 +37,13 @@ public class CatalogViewModelService : ICatalogViewModelService
         _uriComposer = uriComposer;
     }
 
-    public async Task<CatalogIndexViewModel> GetCatalogItems(int pageIndex, int itemsPage, int? brandId, int? typeId)
+    public async Task<CatalogIndexViewModel> GetCatalogItems(int pageIndex, int itemsPage, int? brandId, int? typeId, string? searchTerm = null)
     {
         _logger.LogInformation("GetCatalogItems called.");
 
-        var filterSpecification = new CatalogFilterSpecification(brandId, typeId);
+        var filterSpecification = new CatalogItemSearchSpecification(searchTerm, brandId, typeId);
         var filterPaginatedSpecification =
-            new CatalogFilterPaginatedSpecification(itemsPage * pageIndex, itemsPage, brandId, typeId);
+            new CatalogItemSearchPaginatedSpecification(itemsPage * pageIndex, itemsPage, searchTerm, brandId, typeId);
 
         // the implementation below using ForEach and Count. We need a List.
         var itemsOnPage = await _itemRepository.ListAsync(filterPaginatedSpecification);
@@ -62,6 +62,7 @@ public class CatalogViewModelService : ICatalogViewModelService
             Types = (await GetTypes()).ToList(),
             BrandFilterApplied = brandId ?? 0,
             TypesFilterApplied = typeId ?? 0,
+            SearchTerm = searchTerm,
             PaginationInfo = new PaginationInfoViewModel()
             {
                 ActualPage = pageIndex,

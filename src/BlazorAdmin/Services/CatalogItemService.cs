@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlazorShared.Interfaces;
@@ -83,25 +82,6 @@ public class CatalogItemService : ICatalogItemService
         var brandListTask = _brandService.List();
         var typeListTask = _typeService.List();
         var itemListTask = _httpService.HttpGet<PagedCatalogItemResponse>($"catalog-items");
-        await Task.WhenAll(brandListTask, typeListTask, itemListTask);
-        var brands = brandListTask.Result;
-        var types = typeListTask.Result;
-        var items = itemListTask.Result.CatalogItems;
-        foreach (var item in items)
-        {
-            item.CatalogBrand = brands.FirstOrDefault(b => b.Id == item.CatalogBrandId)?.Name;
-            item.CatalogType = types.FirstOrDefault(t => t.Id == item.CatalogTypeId)?.Name;
-        }
-        return items;
-    }
-
-    public async Task<List<CatalogItem>> Search(string searchTerm)
-    {
-        _logger.LogInformation("Searching catalog items from API with term: {SearchTerm}", searchTerm);
-
-        var brandListTask = _brandService.List();
-        var typeListTask = _typeService.List();
-        var itemListTask = _httpService.HttpGet<PagedCatalogItemResponse>($"catalog-items?searchTerm={Uri.EscapeDataString(searchTerm)}");
         await Task.WhenAll(brandListTask, typeListTask, itemListTask);
         var brands = brandListTask.Result;
         var types = typeListTask.Result;
